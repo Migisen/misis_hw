@@ -1,6 +1,3 @@
-from re import T
-
-
 def count_and_remove(target_list: list, number: int, delete_value: bool = True) -> None:
     counter = 0
     for element in target_list:

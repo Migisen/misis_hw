@@ -1,4 +1,3 @@
-
 def get_playlist_info(songs: dict, n_songs: int) -> float:
     song_names = [input(f'Название {idx}-й песни: ')
                   for idx in range(1, n_songs+1)]
