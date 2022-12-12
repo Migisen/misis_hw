@@ -1,8 +1,8 @@
 from datetime import date, timedelta
-from typing import Iterator
+from typing import Iterator, List
 
 
-def is_date_magical(target_date: date):
+def is_date_magical(target_date: date) -> bool:
     if target_date.day * target_date.month == target_date.year % 100:
         return True
     else:
@@ -16,7 +16,7 @@ def generate_dates(start_date, stop_date) -> Iterator[date]:
         yield day
 
 
-def find_magical_dates(start_date, stop_date):
+def find_magical_dates(start_date, stop_date) -> List[date]:
     magical_dates = []
     for date_n in generate_dates(start_date, stop_date):
         if is_date_magical(date_n):
