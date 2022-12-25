@@ -1,3 +1,4 @@
+import pathlib
 import operator
 
 
@@ -40,19 +41,33 @@ def calculator(a, b, operation):
         raise e
 
 
-if __name__ == "__main__":
-    while True:
-        user_input = input('Введите выражение: ')
-        if user_input == '':
-            break
+def read_data(file: str):
+    with open(file, 'r') as f:
+        return f.readlines()
+
+
+def calculate_from_file(file_path):
+    requiered_calculations = read_data(file_path)
+    result_sum = 0
+    for line_num, expression in enumerate(requiered_calculations):
         try:
-            a, b, operation = process_user_input(user_input)
+            a, b, operation = process_user_input(expression)
+        except IncorrectInputError as iie:
+            print(
+                f'Ошибка ({str(iie)}) на строчке {line_num + 1}: {expression}')
+            continue
+        try:
+            answer = calculator(a, b, operation)
+            expression_print = expression.strip("\n")
+            result_sum += answer
+            print(f'{expression_print} = {answer}')
         except Exception as e:
-            print(f'Ошибка в обработке ввода: {str(e)}')
-            continue
-        try:
-            result = calculator(a, b, operation)
-            print(f'Результат = {result}')
-        except Exception:
-            print('Попробуйте снова')
-            continue
+            print(
+                f'Не смогли вычислить выражение ({str(e)}) на строчке {line_num + 1}: {expression}')
+    print(f'Сумма результатов = {result_sum}')
+
+
+if __name__ == "__main__":
+    path_to_file = pathlib.Path(
+        __file__).parent.resolve() / 'resources' / 'calc_nums.txt'
+    calculate_from_file(path_to_file)

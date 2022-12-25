@@ -8,7 +8,7 @@ def get_playlist_info(songs: dict, n_songs: int) -> float:
             total_playtime += songs[name]
         except KeyError:
             print(
-                f'Не наши песню c названием "{name}", плейлист будет без неё :(')
+                f'Не нашли песню c названием "{name}", плейлист будет без неё :(')
     print(f'Общее время звучания песен: {round(total_playtime, 2)} минуты')
     return total_playtime
 
