@@ -18,14 +18,13 @@ class Herbivore:
         self._max_hunger_per_tick = max_hunger_per_tick
 
     def __str__(self) -> str:
-        return f' ? Состояние животного: \n Сытость: {self.fullness}'
+        return f' ? Состояние животного: \n ? Сытость: {self.fullness}'
 
     @property
     def fullness(self) -> int:
         return self._fullness
 
-    @fullness.setter
-    def fullness(self, nutrition: int):
+    def change_fullness(self, nutrition: int):
         self._fullness += nutrition
         if self._fullness > self._max_fullness:
             self._fullness = self._max_fullness
@@ -36,13 +35,13 @@ class Herbivore:
             print(' ~ Животное не голодное')
             return False
         print(f' + Животное поело и получило {grass.nutrition} ед. насыщения')
-        self.fullness += grass.nutrition
+        self.change_fullness(grass.nutrition)
         return True
 
     def add_hunger(self):
         hunger = -random.sample(range(self._max_hunger_per_tick), 1)[0]
         print(f' - Проголодалось на {hunger} ед')
-        self.fullness = hunger
+        self.change_fullness(hunger)
         if self.fullness < 0:
             raise OutOfFoodError
 
@@ -62,9 +61,11 @@ if __name__ == "__main__":
         if len(grass) != 0:
             if animal.eat(grass[0]):
                 del grass[0]
+        else:
+            print(' ? Травы больше нет (')
         try:
             animal.add_hunger()
             print(animal)
         except OutOfFoodError:
-            print('x(')
+            print(' x(')
             break
