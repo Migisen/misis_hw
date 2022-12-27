@@ -14,7 +14,7 @@ class DecimalCounter:
 
     def decrement(self) -> None:
         if self._count == 0:
-            raise CounterBelowZeroError
+            raise CounterBelowZeroError()
         self._count -= 1
 
 

@@ -1,6 +1,6 @@
 # так как дз на рекурссии
 # то бинарное решение не будем использовать
-def is_power_two(number: int) -> str:
+def is_power_two(number: int) -> bool:
     number = number / 2
     if number == 2:
         return True

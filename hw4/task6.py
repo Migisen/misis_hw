@@ -8,7 +8,7 @@ def group_by_sign(*args: Union[int, float]):
             negative_numbers.append(number)
         else:
             positive_numbers.append(number)
-    return (sorted(negative_numbers, reverse=True), sorted(positive_numbers))
+    return sorted(negative_numbers, reverse=True), sorted(positive_numbers)
 
 
 if __name__ == "__main__":
